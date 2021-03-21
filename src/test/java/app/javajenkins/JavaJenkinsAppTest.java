@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class JenkinsSpringExampleApplicationTests {
+class JavaJenkinsAppTests {
 
     @Autowired
     private MockMvc mockMvc;
