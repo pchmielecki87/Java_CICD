@@ -25,6 +25,6 @@ class JavaJenkinsAppTests {
         this.mockMvc.perform(get("/"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string("Jestem DevOps"));
+                .andExpect(content().string("Welcome in Java Spring!"));
     }
 }
