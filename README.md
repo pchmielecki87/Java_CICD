@@ -1,1 +1,1 @@
-# JavaJenkins
+Java app deployed to Alibaba Cloud using GitHub actions
