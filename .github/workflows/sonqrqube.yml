@@ -50,4 +50,6 @@ jobs:
         -Dsonar.organization=${SONARCLOUD_ORG} \
         -Dsonar.projectKey=${SONARCLOUD_PROJECT_KEY} \
         -Dsonar.login=${SONARCLOUD_TOKEN} \
-        -Dsonar.java.binaries=target/classes
+        -Dsonar.java.binaries=target/classes \
+        -Dsonar.scm.provider=git \
+        -Dsonar.qualitygate.wait=true
