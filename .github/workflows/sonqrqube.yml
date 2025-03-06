@@ -1,0 +1,51 @@
+name: Java CI with SonarQube
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # Set up JDK
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17' # Use the appropriate version for your project
+
+    # Cache Maven dependencies
+    - name: Cache Maven packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    # Build the project
+    - name: Build with Maven
+      run: mvn clean verify
+
+    # SonarQube scan
+    - name: SonarQube Scan
+      env:
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: mvn sonar:sonar -Dsonar.projectKey=my-project-key
+
+    # SonarQube scan v2
+    - name: SonarQube Scan
+      run: mvn sonar:sonar -Dsonar.projectKey=twój-klucz-projektu -Dsonar.host.url=twój-adres-sonarqube -Dsonar.login=twój-token
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
