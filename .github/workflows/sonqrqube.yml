@@ -38,14 +38,16 @@ jobs:
       run: mvn clean verify
 
     # SonarQube scan
-    - name: SonarQube Scan
-      env:
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn sonar:sonar -Dsonar.projectKey=my-project-key
-
-    # SonarQube scan v2
-    - name: SonarQube Scan
-      run: mvn sonar:sonar -Dsonar.projectKey=twój-klucz-projektu -Dsonar.host.url=twój-adres-sonarqube -Dsonar.login=twój-token
+    - name: SonarCloud Scan
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+        SONARCLOUD_ORG: 'pchmielecki87'
+        SONARCLOUD_PROJECT_KEY: 'java_cicd_sonarqube_githubactions'
+      run: |
+        mvn sonar:sonar \
+        -Dsonar.host.url=https://sonarcloud.io \
+        -Dsonar.organization=${SONARCLOUD_ORG} \
+        -Dsonar.projectKey=${SONARCLOUD_PROJECT_KEY} \
+        -Dsonar.login=${SONARCLOUD_TOKEN} \
+        -Dsonar.java.binaries=target/classes
