@@ -45,7 +45,7 @@ jobs:
         SONARCLOUD_ORG: 'pchmielecki87'
         SONARCLOUD_PROJECT_KEY: 'java_cicd_sonarqube_githubactions'
       run: |
-        mvn sonar:sonar \
+        mvn -X sonar:sonar \
         -Dsonar.host.url=https://sonarcloud.io \
         -Dsonar.organization=${SONARCLOUD_ORG} \
         -Dsonar.projectKey=${SONARCLOUD_PROJECT_KEY} \
